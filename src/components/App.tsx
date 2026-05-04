@@ -19,7 +19,7 @@ const defaultState = {
   characters: [],
 };
 
-export default class App extends React.Component<object, AppState> {
+export default class App extends React.Component<AppState> {
   state: AppState = defaultState;
   componentDidMount() {
     const savedQuery = localStorage.getItem('searchQuery') || '';
@@ -30,23 +30,17 @@ export default class App extends React.Component<object, AppState> {
 
   loadCharacters = async (searchQuery: string) => {
     this.setState({ loading: true, error: null });
-    const { data, error } = await fetchCharacters(searchQuery.trim());
 
-    if (data) {
+    try {
+      const data = await fetchCharacters(searchQuery.trim());
       this.setState({
         characters: data.results,
         loading: false,
         error: null,
       });
-    }
-
-    if (error) {
+    } catch (error) {
       console.error('Error fetching characters:', error);
-      this.setState({
-        loading: false,
-        error,
-        characters: [],
-      });
+      this.setState(defaultState);
     }
   };
 
