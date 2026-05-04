@@ -19,7 +19,7 @@ const defaultState = {
   characters: [],
 };
 
-export default class App extends React.Component<AppState> {
+export default class App extends React.Component<object, AppState> {
   state: AppState = defaultState;
   componentDidMount() {
     const savedQuery = localStorage.getItem('searchQuery') || '';

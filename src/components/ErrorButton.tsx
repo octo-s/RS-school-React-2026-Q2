@@ -4,7 +4,10 @@ interface ErrorButtonState {
   hasError: boolean;
 }
 
-export default class ErrorButton extends React.Component<ErrorButtonState> {
+export default class ErrorButton extends React.Component<
+  object,
+  ErrorButtonState
+> {
   state = { hasError: false };
 
   triggerError = () => {
